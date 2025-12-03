@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator rat kredytu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Kalkulator rat kredytu</h1>
+
+    <form method="post" class="form-box">
+        <div class="field">
+            <label>Kwota kredytu</label>
+            <input type="number" step="0.01" name="kwota"
+                   value="{{ dane.kwota }}"
+                   placeholder="np. 350000">
+        </div>
+
+        <div class="field">
+            <label>Okres kredytowania (w latach)</label>
+            <input type="number" step="0.5" name="okres_lat"
+                   value="{{ dane.okres_lat }}"
+                   placeholder="np. 25">
+        </div>
+
+        <div class="field">
+            <label>Oprocentowanie nominalne (%)</label>
+            <input type="number" step="0.01" name="oprocentowanie"
+                   value="{{ dane.oprocentowanie }}"
+                   placeholder="np. 7.23">
+        </div>
+
+        <button type="submit" class="btn">Oblicz ratę</button>
+    </form>
+
+    <div class="result-box">
+        {% if błąd %}
+            <p class="error">{{ błąd }}</p>
+        {% elif wynik %}
+            <p><strong>Miesięczna rata:</strong>
+                {{ "%.2f"|format(wynik.rata_miesieczna) }} zł</p>
+            <p><strong>Liczba rat:</strong> {{ wynik.liczba_rat }}</p>
+            <p><strong>Suma spłat:</strong>
+                {{ "%.2f"|format(wynik.suma_splat) }} zł</p>
+            <p><strong>Łączne odsetki:</strong>
+                {{ "%.2f"|format(wynik.odsetki) }} zł</p>
+            <p><strong>Oprocentowanie:</strong>
+                {{ "%.2f"|format(wynik.oprocentowanie) }} %</p>
+        {% else %}
+            <p>Wpisz dane i kliknij „Oblicz ratę”, aby zobaczyć wynik.</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
