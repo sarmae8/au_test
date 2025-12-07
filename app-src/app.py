@@ -6,9 +6,8 @@ PORT = 5000
 
 
 def oblicz_rate_annuitetowa(kwota, lata, oprocentowanie_roczne):
-    """Rata stała (annuitetowa)."""
-    n = int(lata * 12)  # liczba miesięcy
-    r = oprocentowanie_roczne / 100.0 / 12.0  # miesięczna stopa
+    n = int(lata * 12)
+    r = oprocentowanie_roczne / 100.0 / 12.0
 
     if n == 0:
         return None
@@ -66,3 +65,4 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=PORT)
+
